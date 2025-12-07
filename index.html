@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خالد إبراهيم - مطور ألعاب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+
+            nav ul {
+                list-style: none;
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s;
+                position: relative;
+                padding: 0.5rem 1rem;
+            }
+
+                nav a::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    right: 50%;
+                    width: 0;
+                    height: 2px;
+                    background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+                    transition: all 0.3s;
+                }
+
+                nav a:hover::after {
+                    width: 100%;
+                    right: 0;
+                }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                width: 500px;
+                height: 500px;
+                background: radial-gradient(circle, rgba(123, 47, 247, 0.3), transparent);
+                border-radius: 50%;
+                top: -200px;
+                right: -200px;
+                animation: float 6s ease-in-out infinite;
+            }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            background: linear-gradient(#0f0c29, #0f0c29) padding-box, linear-gradient(135deg, #00d4ff, #7b2ff7) border-box;
+            margin: 0 auto 2rem;
+            object-fit: cover;
+            box-shadow: 0 10px 40px rgba(123, 47, 247, 0.4);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 10px 40px rgba(123, 47, 247, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 10px 60px rgba(0, 212, 255, 0.6);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .title {
+            font-size: 1.5rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #b8b8d1;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #7b2ff7, #00d4ff);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(123, 47, 247, 0.4);
+        }
+
+            .cta-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 30px rgba(123, 47, 247, 0.6);
+            }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                right: 0;
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(90deg, #7b2ff7, #00d4ff);
+            }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .project-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, rgba(123, 47, 247, 0.1), transparent);
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            .project-card:hover {
+                transform: translateY(-10px);
+                border-color: #7b2ff7;
+                box-shadow: 0 10px 40px rgba(123, 47, 247, 0.3);
+            }
+
+                .project-card:hover::before {
+                    opacity: 1;
+                }
+
+        .project-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00d4ff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-card p {
+            color: #b8b8d1;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-media {
+            width: 100%;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .project-link {
+            padding: 0.5rem 1rem;
+            background: rgba(123, 47, 247, 0.3);
+            border: 1px solid #7b2ff7;
+            border-radius: 5px;
+            color: #fff !important;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+            .project-link:hover {
+                background: #7b2ff7;
+                transform: scale(1.05);
+            }
+
+            .project-link:visited {
+                color: #fff;
+            }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+            .testimonial-card:hover {
+                transform: translateY(-5px);
+                border-color: #00d4ff;
+            }
+
+        .stars {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            color: #b8b8d1;
+            margin-bottom: 1rem;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #fff;
+        }
+
+            .contact-item:hover {
+                transform: translateY(-5px);
+                border-color: #7b2ff7;
+                box-shadow: 0 5px 20px rgba(123, 47, 247, 0.3);
+            }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: #00d4ff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(15, 12, 41, 0.95);
+            color: #b8b8d1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .portfolio-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            section {
+                padding: 3rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#about">عني</a></li>
+            <li><a href="#portfolio">أعمالي</a></li>
+            <li><a href="#testimonials">التقييمات</a></li>
+            <li><a href="#contact">تواصل معي</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <img src="https://i.ibb.co/qLMB6RjL/Khaled.png" alt="خالد إبراهيم" class="profile-img">
+            <h1>خالد إبراهيم</h1>
+            <p class="title">مطور ألعاب محترف</p>
+            <p>مطور ألعاب بخبرة أكثر من 6 سنوات في Unity، أعمل على جميع أنواع الألعاب وقمت بتطوير أكثر من 30 لعبة. شغفي هو الوصول بمجال تطوير الألعاب في الوطن العربي إلى مستوى عالمي.</p>
+            <a href="#portfolio" class="cta-button">شاهد أعمالي</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">نبذة عني</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.2rem; color: #b8b8d1; line-height: 2;">
+                أنا خالد إبراهيم، مطور ألعاب شغوف بخبرة تزيد عن 6 سنوات في العمل على محرك Unity. قمت بتطوير أكثر من 30 لعبة متنوعة تشمل ألعاب الموبايل، الكمبيوتر، والواقع الافتراضي. أسعى دائماً لتقديم تجارب ألعاب فريدة ومبتكرة، وأؤمن بأن المطورين العرب قادرون على المنافسة عالمياً. هدفي هو المساهمة في رفع مستوى صناعة الألعاب في الوطن العربي والوصول بها إلى العالمية.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 3rem; margin-top: 3rem; flex-wrap: wrap;">
+                <div>
+                    <div style="font-size: 3rem; font-weight: 700; color: #00d4ff;">6+</div>
+                    <div style="color: #b8b8d1;">سنوات خبرة</div>
+                </div>
+                <div>
+                    <div style="font-size: 3rem; font-weight: 700; color: #7b2ff7;">30+</div>
+                    <div style="color: #b8b8d1;">لعبة منجزة</div>
+                </div>
+                <div>
+                    <div style="font-size: 3rem; font-weight: 700; color: #00d4ff;">12</div>
+                    <div style="color: #b8b8d1;">مشروع مميز</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <h2 class="section-title">معرض الأعمال</h2>
+        <div class="portfolio-grid">
+            <div class="project-card">
+                <div class="project-number">01</div>
+                <h3>محاكي مقهى الإنترنت</h3>
+                <div class="project-media">
+                    <img src="https://i.ibb.co/zH6qQYkH/Cyber-Cafe.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                <p>إدارة مقهى الإنترنت وتوسيعه تبدأ اللعبة بمقهى صغير وبسيط، وعليك تطويره ليصبح الأشهر في المدينة. قم بشراء أجهزة كمبيوتر جديدة، وتوفير تجربة فريدة لجذب المزيد من الزبائن وكسب الأموال.</p>
+                <div class="project-links">
+                    <a href="https://youtu.be/PF-BAwEnLus" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-play"></i> مشاهدة</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-number">02</div>
+                <h3>نهاية الظل</h3>
+                <div class="project-media">
+                    <img src="https://i.ibb.co/m5WYJ7rZ/Shadow-s-End-png.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                <p>قصة مثيرة ومحفوفة بالغموض تلعب دور محقق يغامر بدخول بيت مهجور ومريب، مليء بالظواهر الخارقة للطبيعة. البيت مسكون بوحش عملاق لا يرحم، مما يجعلك دائمًا في حالة ترقب وخوف أثناء البحث عن أدلة تكشف سر المكان الغامض.</p>
+                <div class="project-links">
+                    <a href="https://youtu.be/OqsLOokGrW8" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-play"></i> مشاهدة</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-number">03</div>
+                <h3>سيارات بينجو</h3>
+                <div class="project-media">
+                    <img src="https://i.ibb.co/MkgxFZf6/DALL-E-2025-01-27-13-40-55-A-vibrant-and-playful-logo-design-for-a-car-arcade-game-named-Bingo-Ca.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                <p>استعد لخوض تجربة لا مثيل لها في عالم سباق السيارات مع لعبة "سباق السيارات الأسطوري"! هذه اللعبة المصممة بعناية تجمع بين التحدي والإثارة، وتضعك خلف عجلة قيادة أكثر من 150 سيارة فريدة من نوعها. انطلق في مغامرة عبر 300 مستوى متنوع، مليء بالحماس والتشويق.</p>
+                <div class="project-links">
+                    <a href="https://youtu.be/NNeLWd9spPQ" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-play"></i> مشاهدة</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-number">04</div>
+                <h3>منطقة الحرب</h3>
+                <div class="project-media">
+                    <img src="https://i.ibb.co/ymZ8LhRN/war-zone.jpgp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                <p>لعبة إطلاق نار ثلاثية الأبعاد مع أعداء آليين يتبعون اللاعب ويحاولون قتله</p>
+                <div class="project-links">
+                    <a href="https://mohamed20047.itch.io/ware-zone" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-link"></i> الرابط</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-number">05</div>
+                <h3>ايرث البطاطس</h3>
+                <div class="project-media">
+                    <img src="https://i.ibb.co/rKYSM3VB/DALL-E-2025-01-27-13-54-44-A-playful-and-adventurous-logo-design-for-the-3-D-platformer-game-Potat.webp" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                <p>
+                    هي لعبة منصات ثلاثية الابعاد وتدور اللعبة حول انك بطاطس تحاول ان تجد ايرث عائلتك فاتبداء رحلتك وتبداء في حل العقابات والمشاكل لتصل الي ارثك وارث اجدادك.
+
+                </p>
+                <div class="project-links">
+                    <a href="https://youtu.be/fSft6hQBKp8?si=ZEV33g4H0-JOnvFn" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-play"></i> مشاهدة</a>
+                    <a href="https://mohamed20047.itch.io/potato-legacy" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-link"></i> الرابط</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-number">06</div>
+                <h3>الحديقة الخلفية</h3>
+                <div class="project-media">
+                    <img src="https://i.ibb.co/3nL4L3j/bsckyard1.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                <p>لعبة ثنائية الابعاد هدفك هو ان تغرس الاشجار وتحميها من هجوم الاعداء وتفوز عندما تزرع جميع الاشجار في المناطق الستة</p>
+                <div class="project-links">
+                    <a href="https://youtu.be/DOFLfcJMIe4?si=L8hwyg7lrlk1avvF" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-play"></i> مشاهدة</a>
+                    <a href="https://mohamed20047.itch.io/back-yard" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-link"></i> الرابط</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-number">07</div>
+                <h3>عدوى فكرية</h3>
+                <div class="project-media">
+                    <img src="https://i.ibb.co/JjzHCNvx/thought-infection.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                </div>
+                <p>لعبة تتكون من ثلاث مراحل وهدفك الهروب من المكان الذي فيه عبر استخدام المصل للتحكم بالاعداء لتمهيد الطريق لك</p>
+                <div class="project-links">
+                    <a href="https://mohamed20047.itch.io/thought-infection" target="_blank" rel="noopener noreferrer" class="project-link"><i class="fas fa-link"></i> الرابط</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+        <h2 class="section-title">آراء العملاء</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">عمل ممتاز ويضيف بعض اللمسات التي من دورها مساعدتك في العمل. من الأشخاص الأكثر تفضيلاً بالنسبة لي ذاك الذي لا ينفذ حرفياً المطلوب إنما يرى النقص ويملؤه من جانبه لكي يكون العمل مثالياً.</p>
+                <div class="testimonial-author">- إبراهيم</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">خالد من أفضل المبرمجين الذين تعاملت معهم على الإطلاق. يتميز بفهم عميق للتفاصيل واحترافية عالية في تنفيذ المشروع بشكل يتجاوز التوقعات. تعاونه كان رائعاً طوال فترة العمل، وكان حريصاً على التسليم في الوقت المحدد بدقة عالية. أنصح بالتعامل معه بشدة لمن يبحث عن الجودة والالتزام.</p>
+                <div class="testimonial-author">- محمد</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">إنسان متعاون وأسطوري بشكل رهيب.</p>
+                <div class="testimonial-author">- عمر</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">الأستاذ خالد إبراهيم مميز فعلاً بخبرته الواسعة في برنامج يونيتي... لديه كمية كبيرة من التجاوب والتعاون والصبر والمساعدة في حل مشاكل المشروع الذي يتعهده، وربما أوسع من ذلك أيضاً... سرعته في التواصل جيدة ويحب أن يفصل ويشرح في إجاباته بحيث لا يترك أي غموض أبداً عند صاحب المشروع... فيسخى على صاحب المشروع بالصور والملفات الصوتية الشارحة لطبيعة المشكلة وأساليب الحل... أنصح بالتعامل معه.</p>
+                <div class="testimonial-author">- أحمد</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">مستقل محترف ومتعاون. كان التعامل معه أكثر من رائع حيث أنجز المهمة بكل احترافية وأمانة. نتطلع للتعامل معاً مجدداً.</p>
+                <div class="testimonial-author">- فاطمة</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">تواصل معي</h2>
+        <div class="contact-grid">
+            <a href="mailto:khaledibrahemw@gmail.com" class="contact-item">
+                <i class="fas fa-envelope contact-icon"></i>
+                <div>
+                    <div style="font-weight: 600;">البريد الإلكتروني</div>
+                    <div style="color: #b8b8d1; font-size: 0.9rem;">
+                        khaledibrahemw@gmail.com
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://github.com/khaled9411" target="_blank" class="contact-item">
+                <i class="fab fa-github contact-icon"></i>
+                <div>
+                    <div style="font-weight: 600;">GitHub</div>
+                    <div style="color: #b8b8d1; font-size: 0.9rem;">@khaled9411</div>
+                </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/khaled-ibrahem-662036201/" target="_blank" class="contact-item">
+                <i class="fab fa-linkedin contact-icon"></i>
